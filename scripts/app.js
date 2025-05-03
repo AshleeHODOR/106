@@ -12,7 +12,7 @@ function init(){
 
 window.onload = init; //this will run when poage is loaded - 
 // when the html and the css are loaded the logic will run
-
+//random comment
 
 
 
