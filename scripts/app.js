@@ -18,16 +18,16 @@ function saveTask(){
 
 function displayTask(task){
     let syntax = `
-        <div>
-            <div>
-                <div>
+        <div class="task-container" style="border-color:${task.color}">
+            <div class="task">
+                <div class="task-information">
                     <h5>${task.title}</h5>
                     <p>${task.description}</p>
                 </div>
 
-                <div>${task.status}</div>
+                <div class="task-status">${task.status}</div>
 
-                <div>
+                <div class="task-date-budget">
                     <span>${task.date}</span>
                     <span>${task.budget}</span>
                 </div>
@@ -35,7 +35,7 @@ function displayTask(task){
         </div>
     `
 
-    $("#list").append(syntax); 
+    $("#list").append(syntax);
 }
 
 
