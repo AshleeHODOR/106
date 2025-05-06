@@ -1,13 +1,48 @@
-function saveTask()
-{
-    console.log("button clicked")
+function saveTask(){
+    console.log("button clicked");
+
+    //get values from from fields
+    const title = $("#txtTitle").val();
+    const description = $("#txtDescription").val();
+    const color = $("#selColor").val();
+    const date = $("#selDate").val();
+    const status = $("#selStatus").val();
+    const budget = $("#numBudget").val();
+    
+    //create a new task
+    let task = new Task(title, description, color, date, status, budget);
+    console.log(task); 
+
+    displayTask(task);
 }
+
+function displayTask(task){
+    let syntax = `
+        <div>
+            <div>
+                <div>
+                    <h5>${task.title}</h5>
+                    <p>${task.description}</p>
+                </div>
+
+                <div>${task.status}</div>
+
+                <div>
+                    <span>${task.date}</span>
+                    <span>${task.budget}</span>
+                </div>
+            </div>
+        </div>
+    `
+
+    $("#list").append(syntax); 
+}
+
 
 function init() {
     //load data
 
     //hook events
-
     $("#btnSave").click(saveTask);
 }
 
