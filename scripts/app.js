@@ -1,20 +1,69 @@
 function saveTask(){
     console.log("button clicked");
 
-    //get values from from fields
+    displayTask(task);
+
+
+    //get values from fields
     const title = $("#txtTitle").val();
     const description = $("#txtDescription").val();
     const color = $("#selColor").val();
     const date = $("#selDate").val();
     const status = $("#selStatus").val();
     const budget = $("#numBudget").val();
-    
-    //create a new task
+
+function displayData(){
+    $.ajax({
+        type: "GET",
+        url:"http://fsdiapi.azurewebsites.net", 
+        success: function(response){console.log(response);}, 
+        error:function(error){console.log("Error", error);}
+}); 
+}
+
+    displayTask(task);
     let task = new Task(title, description, color, date, status, budget);
     console.log(task); 
+    
+    displayTask(data);
+
+    //save logic
+    $.ajax({
+        type: "post",
+        url:"http://fsdiapi.azurewebsites.net/api/tasks/", 
+        data: JSON.stringify(task), 
+        contentType: "application/json", 
+        success: function(response){console.log(response);}, 
+        error:function(error){console.log("Error", error);}
+    }); 
+    displayTask(data);
+}
+
+
+function loadTasks(){
+    $.ajax({
+        type: "GET",
+        url:"http://fsdiapi.azurewebsites.net/api/tasks", 
+        success: function(response){
+            let data = JSON.parse(response);
+            console.log(data);},
+        error: function(error){console.log("Error",error);}
+        });
+
+    displayTask(data);
+    
+function testRequest(){
+    $.ajax({
+        type: "GET",
+        url:"http://fsdiapi.azurewebsites.net", 
+        success: function(response){console.log(response);}, 
+        error:function(error){console.log("Error", error);}
+    }); 
 
     displayTask(task);
 }
+
+displayTask(task);
 
 function displayTask(task){
     let syntax = `
@@ -36,17 +85,14 @@ function displayTask(task){
     `
 
     $("#list").append(syntax);
+    displayTask(task);
 }
+displayTask(task);
 
 
 function init() {
-    //load data
-
-    //hook events
     $("#btnSave").click(saveTask);
 }
 
-
-//Why I am running the init function...
-window.onload = init; //this will run when poage is loaded - 
-// when the html and the css are loaded the logic will run
+window.onload = init;
+}
