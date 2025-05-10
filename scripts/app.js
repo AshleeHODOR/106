@@ -31,14 +31,16 @@ function displayData(){
     $.ajax({
         type: "post",
         url:"http://fsdiapi.azurewebsites.net/api/tasks/", 
+    
         data: JSON.stringify(task), 
         contentType: "application/json", 
         success: function(response){console.log(response);}, 
         error:function(error){console.log("Error", error);}
     }); 
-    displayTask(data);
+
 }
 
+//displayTask(task);
 
 function loadTasks(){
     $.ajax({
@@ -46,11 +48,15 @@ function loadTasks(){
         url:"http://fsdiapi.azurewebsites.net/api/tasks", 
         success: function(response){
             let data = JSON.parse(response);
-            console.log(data);},
+            console.log(data);
+            for(let i=0;i<data.length;i++)
+            {
+            displayTask(data[i]);
+            }
+        },
         error: function(error){console.log("Error",error);}
         });
-
-    displayTask(data);
+}
     
 function testRequest(){
     $.ajax({
@@ -62,8 +68,6 @@ function testRequest(){
 
     displayTask(task);
 }
-
-displayTask(task);
 
 function displayTask(task){
     let syntax = `
@@ -87,12 +91,12 @@ function displayTask(task){
     $("#list").append(syntax);
     displayTask(task);
 }
-displayTask(task);
-
 
 function init() {
     $("#btnSave").click(saveTask);
+    //load data
+    loadTasks();
+    //hook events
 }
 
 window.onload = init;
-}
